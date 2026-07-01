@@ -67,6 +67,47 @@
             margin-top: 2px;
         }
 
+        /* ⭐ ABAS */
+        .abas {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #e8edf2;
+            padding-bottom: 8px;
+        }
+
+        .aba-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f0f2f5;
+            color: #667781;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .aba-btn.active {
+            background: #25D366;
+            color: white;
+        }
+
+        .aba-btn:active {
+            transform: scale(0.95);
+        }
+
+        .aba-conteudo {
+            display: none;
+        }
+
+        .aba-conteudo.active {
+            display: block;
+        }
+
+        /* SUBTITULO */
         .subtitle {
             background: #e8f5e9;
             padding: 10px 14px;
@@ -114,10 +155,6 @@
             font-size: 16px;
             min-width: 65px;
             letter-spacing: 0.5px;
-        }
-
-        .legenda-estrelas .texto-nivel {
-            font-size: 12px;
         }
 
         /* CAMPO NOME */
@@ -372,6 +409,146 @@
         }
 
         /* ============================================= */
+        /* 📊 RESULTADOS - RANKING E PORCENTAGENS */
+        /* ============================================= */
+        .resultado-container {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #e8edf2;
+        }
+
+        .resultado-container h3 {
+            font-size: 15px;
+            color: #1a2a3a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .resultado-container .total-votos {
+            font-size: 13px;
+            color: #667781;
+            margin-bottom: 12px;
+            text-align: center;
+            padding: 6px;
+            background: #e8edf2;
+            border-radius: 8px;
+        }
+
+        /* Ranking */
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #eef2f5;
+        }
+
+        .ranking-item .posicao {
+            font-weight: 700;
+            color: #667781;
+            font-size: 13px;
+            min-width: 28px;
+        }
+
+        .ranking-item .nome-jogador {
+            font-weight: 600;
+            color: #1a2a3a;
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .ranking-item .media-estrelas {
+            font-size: 14px;
+            color: #f1c40f;
+            letter-spacing: 0.5px;
+        }
+
+        .ranking-item .media-numero {
+            font-size: 12px;
+            color: #667781;
+            min-width: 30px;
+            text-align: right;
+        }
+
+        .ranking-item .barra-porcentagem {
+            flex: 1;
+            height: 6px;
+            background: #e8edf2;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .ranking-item .barra-porcentagem .fill {
+            height: 100%;
+            background: #25D366;
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        /* Porcentagem por jogador */
+        .jogador-resultado {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #eef2f5;
+        }
+
+        .jogador-resultado .nome {
+            font-weight: 600;
+            color: #1a2a3a;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .jogador-resultado .niveis {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+        }
+
+        .jogador-resultado .nivel-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: #3a4a5a;
+        }
+
+        .jogador-resultado .nivel-item .estrela {
+            color: #f1c40f;
+            font-size: 12px;
+        }
+
+        .jogador-resultado .nivel-item .porcentagem {
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        /* Barra de porcentagem pequena */
+        .barra-pequena {
+            flex: 1;
+            height: 4px;
+            background: #e8edf2;
+            border-radius: 2px;
+            overflow: hidden;
+            min-width: 40px;
+        }
+
+        .barra-pequena .fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s;
+        }
+
+        /* ============================================= */
         /* 📱 FOOTER */
         /* ============================================= */
         .footer {
@@ -410,7 +587,7 @@
         }
 
         /* ============================================= */
-        /* 📱 RESPONSIVIDADE PARA CELULARES */
+        /* 📱 RESPONSIVIDADE */
         /* ============================================= */
 
         @media (max-width: 380px) {
@@ -426,10 +603,11 @@
             .jogador-card { padding: 10px; margin-bottom: 8px; border-radius: 10px; }
             .jogador-card .jogador-nome { font-size: 13px; margin-bottom: 8px; }
             .legenda-estrelas .estrelas { font-size: 14px; min-width: 50px; }
-            .legenda-estrelas .texto-nivel { font-size: 11px; }
             .btn-votar { font-size: 15px; padding: 12px; border-radius: 12px; }
             .nome-input { font-size: 14px; padding: 10px 12px; }
             .footer { font-size: 11px; margin-top: 18px; padding-top: 12px; }
+            .aba-btn { font-size: 11px; padding: 6px 8px; }
+            .jogador-resultado .niveis { grid-template-columns: 1fr 1fr; }
         }
 
         @media (min-width: 381px) and (max-width: 480px) {
@@ -456,6 +634,7 @@
             .jogador-card { padding: 16px; margin-bottom: 12px; }
             .jogador-card .jogador-nome { font-size: 16px; }
             .footer { font-size: 13px; margin-top: 28px; padding-top: 20px; }
+            .aba-btn { font-size: 14px; padding: 10px 16px; }
         }
 
         @media (max-height: 500px) and (orientation: landscape) {
@@ -480,6 +659,12 @@
             .btn-votar { font-size: 14px; padding: 10px; margin-top: 12px; border-radius: 10px; }
             .jogador-card .jogador-nome .badge { font-size: 8px; padding: 1px 6px; }
             .footer { font-size: 10px; margin-top: 12px; padding-top: 10px; }
+            .aba-btn { font-size: 10px; padding: 4px 8px; }
+            .jogador-resultado .niveis { grid-template-columns: 1fr 1fr; }
+            .resultado-container { padding: 10px; }
+            .ranking-item { padding: 4px 8px; }
+            .ranking-item .nome-jogador { font-size: 12px; }
+            .ranking-item .media-estrelas { font-size: 12px; }
         }
 
         @media (max-width: 280px) {
@@ -488,6 +673,7 @@
             .opcao label .estrelas-texto { font-size: 10px; }
             .opcao label .nivel-texto { font-size: 7px; }
             .container { padding: 10px 8px 14px; }
+            .jogador-resultado .niveis { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -502,64 +688,112 @@
         </div>
     </div>
 
-    <div class="subtitle">
-        <span>📋</span> Seu voto será registrado apenas 01 vez
+    <!-- ⭐ ABAS -->
+    <div class="abas">
+        <button class="aba-btn active" data-aba="votacao">🗳️ Votar</button>
+        <button class="aba-btn" data-aba="resultados">📊 Resultados</button>
     </div>
 
-    <!-- ⭐ LEGENDA DAS ESTRELAS -->
-    <div class="legenda-estrelas">
-        <div class="titulo-legenda">Níveis de avaliação:</div>
-        <div class="item">
-            <span class="estrelas">⭐</span>
-            <span class="texto-nivel">Não corre e nem marca</span>
+    <!-- ============================================= -->
+    <!-- ABA 1: VOTAÇÃO -->
+    <!-- ============================================= -->
+    <div class="aba-conteudo active" id="aba-votacao">
+        <div class="subtitle">
+            <span>📋</span> Seu voto será registrado
         </div>
-        <div class="item">
-            <span class="estrelas">⭐⭐</span>
-            <span class="texto-nivel">Preguiçoso</span>
+
+        <!-- ⭐ LEGENDA DAS ESTRELAS -->
+        <div class="legenda-estrelas">
+            <div class="titulo-legenda">⭐ Níveis de avaliação:</div>
+            <div class="item">
+                <span class="estrelas">⭐</span>
+                <span>Não corre e nem marca</span>
+            </div>
+            <div class="item">
+                <span class="estrelas">⭐⭐</span>
+                <span>Preguiçoso</span>
+            </div>
+            <div class="item">
+                <span class="estrelas">⭐⭐⭐</span>
+                <span>Corre e marca</span>
+            </div>
+            <div class="item">
+                <span class="estrelas">⭐⭐⭐⭐</span>
+                <span>Joga bem</span>
+            </div>
         </div>
-        <div class="item">
-            <span class="estrelas">⭐⭐⭐</span>
-            <span class="texto-nivel">Corre e marca</span>
-        </div>
-        <div class="item">
-            <span class="estrelas">⭐⭐⭐⭐</span>
-            <span class="texto-nivel">Joga bem</span>
+
+        <form id="formVotacao">
+            <div class="nome-section">
+                <label>Seu nome <span class="required">*</span></label>
+                <input type="text" 
+                       class="nome-input" 
+                       id="nomeVotante" 
+                       placeholder="Digite seu nome no grupo" 
+                       required
+                       autocomplete="off">
+            </div>
+
+            <div id="listaJogadores"></div>
+
+            <div id="erroGlobal" class="erro-msg"></div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="margin-top: 8px; font-size: 14px;">Enviando seu voto...</p>
+            </div>
+
+            <button type="submit" class="btn-votar" id="btnVotar">
+                🗳️ Enviar meu voto
+            </button>
+        </form>
+
+        <div id="resultado">
+            <h3>✅ Voto registrado!</h3>
+            <p style="color: #3a5a4a; margin-bottom: 10px; font-size: 14px;">
+                Seu voto foi salvo. Obrigado por participar! ⚽
+            </p>
+            <button class="btn-voltar" id="btnVoltar">
+                ↩️ Voltar e votar novamente
+            </button>
         </div>
     </div>
 
-    <form id="formVotacao">
-        <div class="nome-section">
-            <label>Seu nome <span class="required">*</span></label>
-            <input type="text" 
-                   class="nome-input" 
-                   id="nomeVotante" 
-                   placeholder="Digite seu nome no grupo" 
-                   required
-                   autocomplete="off">
+    <!-- ============================================= -->
+    <!-- ABA 2: RESULTADOS -->
+    <!-- ============================================= -->
+    <div class="aba-conteudo" id="aba-resultados">
+        <div class="subtitle">
+            <span>📊</span> Resultados da votação - atualizados em tempo real
         </div>
 
-        <div id="listaJogadores"></div>
-
-        <div id="erroGlobal" class="erro-msg"></div>
-
-        <div class="loading" id="loading">
+        <!-- Loading dos resultados -->
+        <div id="loadingResultados" style="text-align:center; padding:20px; color:#667781;">
             <div class="spinner"></div>
-            <p style="margin-top: 8px; font-size: 14px;">Enviando seu voto...</p>
+            <p style="margin-top: 8px;">Carregando resultados...</p>
         </div>
 
-        <button type="submit" class="btn-votar" id="btnVotar">
-            🗳️ Enviar meu voto
-        </button>
-    </form>
+        <!-- Container dos resultados -->
+        <div id="conteudoResultados" style="display:none;">
+            <!-- Total de votos -->
+            <div class="resultado-container">
+                <div class="total-votos" id="totalVotos">
+                    Total de votos: 0
+                </div>
+            </div>
 
-    <div id="resultado">
-        <h3>✅ Voto registrado!</h3>
-        <p style="color: #3a5a4a; margin-bottom: 10px; font-size: 14px;">
-            Seu voto foi salvo. Obrigado por participar! ⚽
-        </p>
-        <button class="btn-voltar" id="btnVoltar">
-            ↩️ Voltar
-        </button>
+            <!-- Ranking -->
+            <div class="resultado-container">
+                <h3>🏆 Ranking dos Jogadores</h3>
+                <div id="rankingLista"></div>
+            </div>
+
+            <!-- Porcentagem por jogador -->
+            <div class="resultado-container">
+                <h3>📊 Porcentagem por Jogador</h3>
+                <div id="porcentagemLista"></div>
+            </div>
+        </div>
     </div>
 
     <!-- ============================================= -->
@@ -584,7 +818,7 @@
     // =====================================================
     
     // 🔴 COLOQUE AQUI O URL DO SEU APPS SCRIPT
-    const URL_API = "https://script.google.com/macros/s/AKfycbygZBUq83QliEM6fYQPU503k4CaPlhqL3n__b7G7FU_OIvKK8Mq18wsUzRsh2bOcidckg/exec";
+    const URL_API = "";
     
     // 🔴 LISTA DE JOGADORES (ATUALIZADA COM SEU GRUPO)
     const JOGADORES = [
@@ -615,22 +849,10 @@
 
     // ⭐ NÍVEIS COM ESTRELAS (1 a 4 estrelas)
     const NIVEL_OPCOES = [
-        { 
-            estrelas: "⭐", 
-            nivel: "Não corre e nem marca" 
-        },
-        { 
-            estrelas: "⭐⭐", 
-            nivel: "Preguiçoso" 
-        },
-        { 
-            estrelas: "⭐⭐⭐", 
-            nivel: "Corre e marca" 
-        },
-        { 
-            estrelas: "⭐⭐⭐⭐", 
-            nivel: "Joga bem" 
-        }
+        { estrelas: "⭐", nivel: "Não corre e nem marca", valor: 1 },
+        { estrelas: "⭐⭐", nivel: "Preguiçoso", valor: 2 },
+        { estrelas: "⭐⭐⭐", nivel: "Corre e marca", valor: 3 },
+        { estrelas: "⭐⭐⭐⭐", nivel: "Joga bem", valor: 4 }
     ];
 
     // =====================================================
@@ -645,6 +867,297 @@
     const btnVoltar = document.getElementById('btnVoltar');
     const loading = document.getElementById('loading');
 
+    // Elementos da aba resultados
+    const loadingResultados = document.getElementById('loadingResultados');
+    const conteudoResultados = document.getElementById('conteudoResultados');
+    const totalVotos = document.getElementById('totalVotos');
+    const rankingLista = document.getElementById('rankingLista');
+    const porcentagemLista = document.getElementById('porcentagemLista');
+
+    // =====================================================
+    // FUNÇÃO PARA BUSCAR DADOS DA PLANILHA
+    // =====================================================
+    async function buscarDadosPlanilha() {
+        if (!URL_API) {
+            mostrarResultadosExemplo();
+            return;
+        }
+
+        try {
+            const response = await fetch(URL_API + '?acao=buscar', {
+                method: 'GET',
+                mode: 'cors'
+            });
+
+            if (!response.ok) throw new Error('Erro ao buscar dados');
+
+            const dados = await response.json();
+            return dados;
+        } catch (error) {
+            console.warn('Erro ao buscar dados da planilha:', error);
+            mostrarResultadosExemplo();
+            return null;
+        }
+    }
+
+    // =====================================================
+    // FUNÇÃO PARA CALCULAR RESULTADOS
+    // =====================================================
+        function calcularResultados(votos) {
+            if (!votos || votos.length === 0) {
+                return {
+                    total: 0,
+                    ranking: JOGADORES.map(jogador => ({
+                        nome: jogador,
+                        media: 0,
+                        totalVotos: 0,
+                        estrelas: '☆'
+                    })),
+                    porcentagens: {}
+                };
+            }
+        
+            const resultados = {};
+            const totalVotantes = votos.length;
+        
+            // Inicializa resultados para cada jogador
+            JOGADORES.forEach(jogador => {
+                resultados[jogador] = {
+                    totalVotos: 0,
+                    somaEstrelas: 0,
+                    niveis: {
+                        "Não corre e nem marca": 0,
+                        "Preguiçoso": 0,
+                        "Corre e marca": 0,
+                        "Joga bem": 0
+                    }
+                };
+            });
+        
+            // Processa cada voto
+            votos.forEach(voto => {
+                Object.keys(voto).forEach(jogador => {
+                    if (jogador !== 'votante' && jogador !== 'timestamp' && jogador !== 'index') {
+                        const nivel = voto[jogador];
+                        if (nivel && resultados[jogador]) {
+                            resultados[jogador].totalVotos++;
+                            
+                            // Soma estrelas - com validação de segurança
+                            const opcao = NIVEL_OPCOES.find(o => o.nivel === nivel);
+                            if (opcao && typeof opcao.valor === 'number') {
+                                resultados[jogador].somaEstrelas += opcao.valor;
+                            }
+        
+                            // Conta por nível
+                            if (resultados[jogador].niveis[nivel] !== undefined) {
+                                resultados[jogador].niveis[nivel]++;
+                            }
+                        }
+                    }
+                });
+            });
+        
+            // Calcula médias e porcentagens
+            const ranking = [];
+            const porcentagens = {};
+        
+            JOGADORES.forEach(jogador => {
+                const dados = resultados[jogador];
+                const total = dados.totalVotos;
+                
+                // 🔴 CORREÇÃO: Se não tiver votos, média = 0
+                if (total > 0) {
+                    // Garante que a soma seja um número válido
+                    const soma = dados.somaEstrelas || 0;
+                    const media = soma / total;
+                    
+                    // 🔴 CORREÇÃO: Garante que a média não seja negativa
+                    const mediaValida = Math.max(0, Math.min(4, media));
+                    
+                    ranking.push({
+                        nome: jogador,
+                        media: mediaValida,
+                        totalVotos: total,
+                        estrelas: mediaValida > 0 ? '⭐'.repeat(Math.round(mediaValida)) : '☆'
+                    });
+        
+                    porcentagens[jogador] = {
+                        totalVotos: total,
+                        niveis: {}
+                    };
+        
+                    NIVEL_OPCOES.forEach(opcao => {
+                        const count = dados.niveis[opcao.nivel] || 0;
+                        porcentagens[jogador].niveis[opcao.nivel] = {
+                            count: count,
+                            porcentagem: total > 0 ? (count / total) * 100 : 0,
+                            estrelas: opcao.estrelas
+                        };
+                    });
+                } else {
+                    // 🔴 CORREÇÃO: Jogador sem votos recebe média 0
+                    ranking.push({
+                        nome: jogador,
+                        media: 0,
+                        totalVotos: 0,
+                        estrelas: '☆'
+                    });
+        
+                    porcentagens[jogador] = {
+                        totalVotos: 0,
+                        niveis: {}
+                    };
+        
+                    NIVEL_OPCOES.forEach(opcao => {
+                        porcentagens[jogador].niveis[opcao.nivel] = {
+                            count: 0,
+                            porcentagem: 0,
+                            estrelas: opcao.estrelas
+                        };
+                    });
+                }
+            });
+        
+            // Ordena ranking por média (decrescente)
+            ranking.sort((a, b) => b.media - a.media);
+        
+            return {
+                total: totalVotantes,
+                ranking: ranking,
+                porcentagens: porcentagens
+            };
+        }
+    // =====================================================
+    // FUNÇÃO PARA EXIBIR RESULTADOS
+    // =====================================================
+    function exibirResultados(dados) {
+        if (!dados || dados.total === 0) {
+            totalVotos.textContent = '📊 Nenhum voto registrado ainda. Seja o primeiro a votar! 🗳️';
+            rankingLista.innerHTML = '<p style="text-align:center; color:#667781; padding:20px;">Aguardando votos...</p>';
+            porcentagemLista.innerHTML = '<p style="text-align:center; color:#667781; padding:20px;">Aguardando votos...</p>';
+            return;
+        }
+
+        // Total de votos
+        totalVotos.textContent = `📊 Total de votos: ${dados.total} pessoa(s) já votaram!`;
+
+        // Ranking
+        let rankingHTML = '';
+        dados.ranking.forEach((item, index) => {
+            const posicao = index + 1;
+            const medalha = posicao === 1 ? '🥇' : posicao === 2 ? '🥈' : posicao === 3 ? '🥉' : `#${posicao}`;
+            const mediaEstrelas = item.media > 0 ? item.estrelas : '☆';
+            
+            rankingHTML += `
+                <div class="ranking-item">
+                    <span class="posicao">${medalha}</span>
+                    <span class="nome-jogador">${item.nome}</span>
+                    <span class="media-estrelas">${mediaEstrelas}</span>
+                    <span class="media-numero">${item.media.toFixed(1)}</span>
+                </div>
+            `;
+        });
+        rankingLista.innerHTML = rankingHTML;
+
+        // Porcentagens por jogador
+        let porcentagemHTML = '';
+        JOGADORES.forEach(jogador => {
+            const dadosJogador = dados.porcentagens[jogador];
+            if (!dadosJogador) return;
+
+            porcentagemHTML += `
+                <div class="jogador-resultado">
+                    <div class="nome">${jogador} <span style="font-weight:400; color:#667781; font-size:12px;">(${dadosJogador.totalVotos} votos)</span></div>
+                    <div class="niveis">
+            `;
+
+            NIVEL_OPCOES.forEach(opcao => {
+                const nivel = dadosJogador.niveis[opcao.nivel];
+                const pct = nivel ? nivel.porcentagem : 0;
+                const count = nivel ? nivel.count : 0;
+                const cor = pct > 50 ? '#25D366' : pct > 25 ? '#f1c40f' : '#e74c3c';
+
+                porcentagemHTML += `
+                    <div class="nivel-item">
+                        <span class="estrela">${opcao.estrelas}</span>
+                        <span style="flex:1; font-size:10px; color:#667781;">${count}</span>
+                        <div class="barra-pequena">
+                            <div class="fill" style="width:${pct}%; background:${cor};"></div>
+                        </div>
+                        <span class="porcentagem" style="color:${cor};">${pct.toFixed(0)}%</span>
+                    </div>
+                `;
+            });
+
+            porcentagemHTML += `
+                    </div>
+                </div>
+            `;
+        });
+        porcentagemLista.innerHTML = porcentagemHTML;
+    }
+
+    // =====================================================
+    // FUNÇÃO PARA MOSTRAR RESULTADOS DE EXEMPLO (FALLBACK)
+    // =====================================================
+    function mostrarResultadosExemplo() {
+        // Dados de exemplo para teste
+        const exemplo = {
+            total: 5,
+            ranking: JOGADORES.map((nome, index) => ({
+                nome: nome,
+                media: 4 - (index * 0.3),
+                totalVotos: 5,
+                estrelas: '⭐'.repeat(Math.max(1, Math.round(4 - (index * 0.3))))
+            })).sort((a, b) => b.media - a.media),
+            porcentagens: {}
+        };
+
+        JOGADORES.forEach(jogador => {
+            exemplo.porcentagens[jogador] = {
+                totalVotos: 5,
+                niveis: {
+                    "Não corre e nem marca": { count: 1, porcentagem: 20, estrelas: "⭐" },
+                    "Preguiçoso": { count: 1, porcentagem: 20, estrelas: "⭐⭐" },
+                    "Corre e marca": { count: 2, porcentagem: 40, estrelas: "⭐⭐⭐" },
+                    "Joga bem": { count: 1, porcentagem: 20, estrelas: "⭐⭐⭐⭐" }
+                }
+            };
+        });
+
+        exibirResultados(exemplo);
+    }
+
+    // =====================================================
+    // FUNÇÃO PARA CARREGAR RESULTADOS DA PLANILHA
+    // =====================================================
+    async function carregarResultados() {
+        loadingResultados.style.display = 'block';
+        conteudoResultados.style.display = 'none';
+
+        try {
+            // Busca dados da planilha
+            const dados = await buscarDadosPlanilha();
+            
+            if (dados && dados.votos && dados.votos.length > 0) {
+                const resultados = calcularResultados(dados.votos);
+                exibirResultados(resultados);
+            } else {
+                // Se não tiver dados na planilha, mostra os de exemplo
+                mostrarResultadosExemplo();
+            }
+        } catch (error) {
+            console.error('Erro ao carregar resultados:', error);
+            mostrarResultadosExemplo();
+        }
+
+        loadingResultados.style.display = 'none';
+        conteudoResultados.style.display = 'block';
+    }
+
+    // =====================================================
+    // FUNÇÃO PARA RENDERIZAR JOGADORES NO FORMULÁRIO
+    // =====================================================
     function renderizarJogadores() {
         listaContainer.innerHTML = '';
         
@@ -681,6 +1194,9 @@
         });
     }
 
+    // =====================================================
+    // VALIDAÇÃO E ENVIO DO VOTO
+    // =====================================================
     function validarVotos() {
         const cards = document.querySelectorAll('.jogador-card');
         let todosVotados = true;
@@ -717,12 +1233,12 @@
             return null;
         }
 
-        const votos = [];
+        const votos = {};
         JOGADORES.forEach((nomeJogador, index) => {
             const radios = document.querySelectorAll(`input[name="jogador_${index}"]`);
             let valor = '';
             radios.forEach(r => { if (r.checked) valor = r.value; });
-            votos.push({ jogador: nomeJogador, nivel: valor });
+            votos[nomeJogador] = valor;
         });
 
         return { votante: nome, votos };
@@ -747,7 +1263,10 @@
             resultadoDiv.classList.add('show');
             form.style.display = 'none';
             
-            window.votosRegistrados = dados;
+            // Recarrega os resultados após votar
+            setTimeout(() => {
+                carregarResultados();
+            }, 1000);
             
         } catch (error) {
             loading.classList.remove('show');
@@ -761,13 +1280,52 @@
     function voltarFormulario() {
         form.style.display = 'block';
         resultadoDiv.classList.remove('show');
-        window.votosRegistrados = null;
         btnVotar.disabled = false;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // =====================================================
-    // Event Listeners com verificação de segurança
+    // SISTEMA DE ABAS
+    // =====================================================
+    function alternarAba(abaId) {
+        // Esconde todas as abas
+        document.querySelectorAll('.aba-conteudo').forEach(el => {
+            el.classList.remove('active');
+        });
+        
+        // Remove active de todos os botões
+        document.querySelectorAll('.aba-btn').forEach(el => {
+            el.classList.remove('active');
+        });
+        
+        // Mostra a aba selecionada
+        const abaSelecionada = document.getElementById(`aba-${abaId}`);
+        if (abaSelecionada) {
+            abaSelecionada.classList.add('active');
+        }
+        
+        // Marca o botão como ativo
+        const botaoSelecionado = document.querySelector(`.aba-btn[data-aba="${abaId}"]`);
+        if (botaoSelecionado) {
+            botaoSelecionado.classList.add('active');
+        }
+
+        // Se for a aba de resultados, carrega os dados
+        if (abaId === 'resultados') {
+            carregarResultados();
+        }
+    }
+
+    // Event listeners para as abas
+    document.querySelectorAll('.aba-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const aba = this.getAttribute('data-aba');
+            alternarAba(aba);
+        });
+    });
+
+    // =====================================================
+    // EVENT LISTENERS DO FORMULÁRIO
     // =====================================================
 
     if (form) {
@@ -778,14 +1336,10 @@
                 enviarVoto(dados);
             }
         });
-    } else {
-        console.error('❌ Formulário não encontrado!');
     }
 
     if (btnVoltar) {
         btnVoltar.addEventListener('click', voltarFormulario);
-    } else {
-        console.warn('⚠️ Botão "Voltar" não encontrado');
     }
 
     document.addEventListener('change', function(e) {
@@ -805,8 +1359,16 @@
         });
     }
 
-    // Inicializa
+    // =====================================================
+    // INICIALIZAÇÃO
+    // =====================================================
     renderizarJogadores();
+    
+    // Carrega os resultados automaticamente ao abrir a página
+    setTimeout(() => {
+        carregarResultados();
+    }, 500);
+
     console.log('✅ Formulário carregado com segurança!');
 </script>
 
