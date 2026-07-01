@@ -287,30 +287,6 @@
             transform: none;
         }
 
-        .btn-whatsapp {
-            width: 100%;
-            padding: 12px;
-            background: #25D366;
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 8px;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-whatsapp:active {
-            transform: scale(0.97);
-            background: #1da851;
-        }
-
         .btn-voltar {
             width: 100%;
             padding: 12px;
@@ -322,7 +298,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            margin-top: 6px;
+            margin-top: 8px;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -581,11 +557,8 @@
         <p style="color: #3a5a4a; margin-bottom: 10px; font-size: 14px;">
             Seu voto foi salvo. Obrigado por participar! ⚽
         </p>
-        <button class="btn-whatsapp" id="btnCompartilhar">
-            📤 Compartilhar no WhatsApp
-        </button>
         <button class="btn-voltar" id="btnVoltar">
-            ↩️ Voltar
+            ↩️ Voltar e votar novamente
         </button>
     </div>
 
@@ -611,7 +584,7 @@
     // =====================================================
     
     // 🔴 COLOQUE AQUI O URL DO SEU APPS SCRIPT
-    const URL_API = "";
+    const URL_API = "https://script.google.com/macros/s/AKfycbygZBUq83QliEM6fYQPU503k4CaPlhqL3n__b7G7FU_OIvKK8Mq18wsUzRsh2bOcidckg/exec";
     
     // 🔴 LISTA DE JOGADORES (ATUALIZADA COM SEU GRUPO)
     const JOGADORES = [
@@ -669,20 +642,8 @@
     const resultadoDiv = document.getElementById('resultado');
     const erroGlobal = document.getElementById('erroGlobal');
     const btnVotar = document.getElementById('btnVotar');
-    const btnCompartilhar = document.getElementById('btnCompartilhar');
     const btnVoltar = document.getElementById('btnVoltar');
     const loading = document.getElementById('loading');
-
-    // =====================================================
-    // ✅ FUNÇÃO DE SEGURANÇA PARA ADICIONAR EVENTOS
-    // =====================================================
-    function adicionarEventoComSeguranca(elemento, evento, funcao) {
-        if (elemento) {
-            elemento.addEventListener(evento, funcao);
-        } else {
-            console.warn(`⚠️ Elemento não encontrado: ${evento}`);
-        }
-    }
 
     function renderizarJogadores() {
         listaContainer.innerHTML = '';
@@ -797,25 +758,6 @@
         }
     }
 
-    function compartilharWhatsApp() {
-        const dados = window.votosRegistrados;
-        if (!dados) return;
-        
-        let texto = `⚽ *VOTAÇÃO DO FUTEBOL - RESULTADO*\n\n`;
-        texto += `*Votante:* ${dados.votante}\n\n`;
-        texto += `📊 *Níveis de cada jogador:*\n`;
-        dados.votos.forEach(v => {
-            const opcao = NIVEL_OPCOES.find(o => o.nivel === v.nivel);
-            const estrelas = opcao ? opcao.estrelas : '';
-            texto += `▪️ ${v.jogador}: ${estrelas} ${v.nivel}\n`;
-        });
-        texto += `\n🔹 Vote você também! 🔹`;
-        texto += `\n${window.location.href}`;
-        
-        const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
-        window.open(url, '_blank');
-    }
-
     function voltarFormulario() {
         form.style.display = 'block';
         resultadoDiv.classList.remove('show');
@@ -828,7 +770,6 @@
     // Event Listeners com verificação de segurança
     // =====================================================
 
-    // Verifica se o formulário existe antes de adicionar o evento
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -841,21 +782,12 @@
         console.error('❌ Formulário não encontrado!');
     }
 
-    // Verifica se o botão de compartilhar existe
-    if (btnCompartilhar) {
-        btnCompartilhar.addEventListener('click', compartilharWhatsApp);
-    } else {
-        console.warn('⚠️ Botão "Compartilhar no WhatsApp" não encontrado');
-    }
-
-    // Verifica se o botão voltar existe
     if (btnVoltar) {
         btnVoltar.addEventListener('click', voltarFormulario);
     } else {
         console.warn('⚠️ Botão "Voltar" não encontrado');
     }
 
-    // Evento para mudança nos radios
     document.addEventListener('change', function(e) {
         if (e.target && e.target.type === 'radio') {
             erroGlobal.classList.remove('show');
@@ -867,7 +799,6 @@
         }
     });
 
-    // Evento para input do nome
     if (nomeInput) {
         nomeInput.addEventListener('input', function() {
             erroGlobal.classList.remove('show');
