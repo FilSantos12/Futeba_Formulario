@@ -437,308 +437,81 @@
         /* 📱 RESPONSIVIDADE PARA CELULARES */
         /* ============================================= */
 
-        /* Celulares pequenos (iPhone SE, Galaxy S8, etc) */
         @media (max-width: 380px) {
-            body {
-                padding: 8px;
-            }
-            
-            .container {
-                padding: 14px 12px 18px;
-                border-radius: 16px;
-            }
-
-            .header h1 {
-                font-size: 16px;
-            }
-            
-            .header p {
-                font-size: 11px;
-            }
-
-            .header-icon {
-                width: 38px;
-                height: 38px;
-                font-size: 20px;
-            }
-
-            .opcoes {
-                grid-template-columns: 1fr 1fr;
-                gap: 4px;
-            }
-
-            .opcao label {
-                min-height: 38px;
-                padding: 6px 3px;
-                font-size: 10px;
-                border-radius: 8px;
-            }
-
-            .opcao label .estrelas-texto {
-                font-size: 13px;
-            }
-
-            .opcao label .nivel-texto {
-                font-size: 9px;
-            }
-
-            .jogador-card {
-                padding: 10px;
-                margin-bottom: 8px;
-                border-radius: 10px;
-            }
-
-            .jogador-card .jogador-nome {
-                font-size: 13px;
-                margin-bottom: 8px;
-            }
-
-            .legenda-estrelas .estrelas {
-                font-size: 14px;
-                min-width: 50px;
-            }
-
-            .legenda-estrelas .texto-nivel {
-                font-size: 11px;
-            }
-
-            .btn-votar {
-                font-size: 15px;
-                padding: 12px;
-                border-radius: 12px;
-            }
-
-            .nome-input {
-                font-size: 14px;
-                padding: 10px 12px;
-            }
-
-            .footer {
-                font-size: 11px;
-                margin-top: 18px;
-                padding-top: 12px;
-            }
+            body { padding: 8px; }
+            .container { padding: 14px 12px 18px; border-radius: 16px; }
+            .header h1 { font-size: 16px; }
+            .header p { font-size: 11px; }
+            .header-icon { width: 38px; height: 38px; font-size: 20px; }
+            .opcoes { grid-template-columns: 1fr 1fr; gap: 4px; }
+            .opcao label { min-height: 38px; padding: 6px 3px; font-size: 10px; border-radius: 8px; }
+            .opcao label .estrelas-texto { font-size: 13px; }
+            .opcao label .nivel-texto { font-size: 9px; }
+            .jogador-card { padding: 10px; margin-bottom: 8px; border-radius: 10px; }
+            .jogador-card .jogador-nome { font-size: 13px; margin-bottom: 8px; }
+            .legenda-estrelas .estrelas { font-size: 14px; min-width: 50px; }
+            .legenda-estrelas .texto-nivel { font-size: 11px; }
+            .btn-votar { font-size: 15px; padding: 12px; border-radius: 12px; }
+            .nome-input { font-size: 14px; padding: 10px 12px; }
+            .footer { font-size: 11px; margin-top: 18px; padding-top: 12px; }
         }
 
-        /* Celulares médios (iPhone 12/13/14, Galaxy A series) */
         @media (min-width: 381px) and (max-width: 480px) {
-            .container {
-                padding: 16px 14px 20px;
-            }
-
-            .header h1 {
-                font-size: 17px;
-            }
-
-            .opcao label {
-                min-height: 42px;
-                padding: 6px 4px;
-            }
-
-            .opcao label .estrelas-texto {
-                font-size: 14px;
-            }
-
-            .opcao label .nivel-texto {
-                font-size: 10px;
-            }
+            .container { padding: 16px 14px 20px; }
+            .header h1 { font-size: 17px; }
+            .opcao label { min-height: 42px; padding: 6px 4px; }
+            .opcao label .estrelas-texto { font-size: 14px; }
+            .opcao label .nivel-texto { font-size: 10px; }
         }
 
-        /* Celulares grandes (iPhone 15 Pro Max, Galaxy S23 Ultra) */
         @media (min-width: 481px) and (max-width: 600px) {
-            .container {
-                max-width: 420px;
-                padding: 20px 18px 24px;
-            }
-
-            .opcao label {
-                min-height: 48px;
-                padding: 8px 6px;
-            }
-
-            .opcao label .estrelas-texto {
-                font-size: 16px;
-            }
-
-            .opcao label .nivel-texto {
-                font-size: 11px;
-            }
+            .container { max-width: 420px; padding: 20px 18px 24px; }
+            .opcao label { min-height: 48px; padding: 8px 6px; }
+            .opcao label .estrelas-texto { font-size: 16px; }
+            .opcao label .nivel-texto { font-size: 11px; }
         }
 
-        /* Tablets e telas maiores */
         @media (min-width: 601px) {
-            .container {
-                max-width: 500px;
-                padding: 24px 22px 30px;
-                border-radius: 24px;
-            }
-
-            .header h1 {
-                font-size: 20px;
-            }
-
-            .opcao label {
-                min-height: 52px;
-                padding: 10px 8px;
-                border-radius: 12px;
-            }
-
-            .opcao label .estrelas-texto {
-                font-size: 18px;
-            }
-
-            .opcao label .nivel-texto {
-                font-size: 12px;
-            }
-
-            .jogador-card {
-                padding: 16px;
-                margin-bottom: 12px;
-            }
-
-            .jogador-card .jogador-nome {
-                font-size: 16px;
-            }
-
-            .footer {
-                font-size: 13px;
-                margin-top: 28px;
-                padding-top: 20px;
-            }
+            .container { max-width: 500px; padding: 24px 22px 30px; border-radius: 24px; }
+            .header h1 { font-size: 20px; }
+            .opcao label { min-height: 52px; padding: 10px 8px; border-radius: 12px; }
+            .opcao label .estrelas-texto { font-size: 18px; }
+            .opcao label .nivel-texto { font-size: 12px; }
+            .jogador-card { padding: 16px; margin-bottom: 12px; }
+            .jogador-card .jogador-nome { font-size: 16px; }
+            .footer { font-size: 13px; margin-top: 28px; padding-top: 20px; }
         }
 
-        /* Modo paisagem (landscape) em celulares */
         @media (max-height: 500px) and (orientation: landscape) {
-            body {
-                padding: 8px;
-            }
-            
-            .container {
-                padding: 12px 14px 16px;
-                border-radius: 14px;
-            }
-
-            .header {
-                padding-bottom: 10px;
-                margin-bottom: 12px;
-            }
-
-            .header-icon {
-                width: 34px;
-                height: 34px;
-                font-size: 18px;
-            }
-
-            .header h1 {
-                font-size: 15px;
-            }
-
-            .header p {
-                font-size: 10px;
-            }
-
-            .subtitle {
-                padding: 6px 12px;
-                font-size: 11px;
-                margin-bottom: 12px;
-            }
-
-            .legenda-estrelas {
-                padding: 6px 12px;
-                margin-bottom: 12px;
-            }
-
-            .legenda-estrelas .item {
-                padding: 1px 0;
-            }
-
-            .legenda-estrelas .estrelas {
-                font-size: 13px;
-                min-width: 45px;
-            }
-
-            .nome-section {
-                margin-bottom: 12px;
-            }
-
-            .nome-section label {
-                font-size: 12px;
-            }
-
-            .nome-input {
-                padding: 8px 12px;
-                font-size: 13px;
-            }
-
-            .jogador-card {
-                padding: 8px;
-                margin-bottom: 6px;
-                border-radius: 10px;
-            }
-
-            .jogador-card .jogador-nome {
-                font-size: 12px;
-                margin-bottom: 6px;
-            }
-
-            .opcao label {
-                min-height: 32px;
-                padding: 4px 3px;
-                font-size: 9px;
-                border-radius: 6px;
-            }
-
-            .opcao label .estrelas-texto {
-                font-size: 11px;
-            }
-
-            .opcao label .nivel-texto {
-                font-size: 8px;
-            }
-
-            .btn-votar {
-                font-size: 14px;
-                padding: 10px;
-                margin-top: 12px;
-                border-radius: 10px;
-            }
-
-            .jogador-card .jogador-nome .badge {
-                font-size: 8px;
-                padding: 1px 6px;
-            }
-
-            .footer {
-                font-size: 10px;
-                margin-top: 12px;
-                padding-top: 10px;
-            }
+            body { padding: 8px; }
+            .container { padding: 12px 14px 16px; border-radius: 14px; }
+            .header { padding-bottom: 10px; margin-bottom: 12px; }
+            .header-icon { width: 34px; height: 34px; font-size: 18px; }
+            .header h1 { font-size: 15px; }
+            .header p { font-size: 10px; }
+            .subtitle { padding: 6px 12px; font-size: 11px; margin-bottom: 12px; }
+            .legenda-estrelas { padding: 6px 12px; margin-bottom: 12px; }
+            .legenda-estrelas .item { padding: 1px 0; }
+            .legenda-estrelas .estrelas { font-size: 13px; min-width: 45px; }
+            .nome-section { margin-bottom: 12px; }
+            .nome-section label { font-size: 12px; }
+            .nome-input { padding: 8px 12px; font-size: 13px; }
+            .jogador-card { padding: 8px; margin-bottom: 6px; border-radius: 10px; }
+            .jogador-card .jogador-nome { font-size: 12px; margin-bottom: 6px; }
+            .opcao label { min-height: 32px; padding: 4px 3px; font-size: 9px; border-radius: 6px; }
+            .opcao label .estrelas-texto { font-size: 11px; }
+            .opcao label .nivel-texto { font-size: 8px; }
+            .btn-votar { font-size: 14px; padding: 10px; margin-top: 12px; border-radius: 10px; }
+            .jogador-card .jogador-nome .badge { font-size: 8px; padding: 1px 6px; }
+            .footer { font-size: 10px; margin-top: 12px; padding-top: 10px; }
         }
 
-        /* Ajuste para telas muito pequenas (relógios, etc) */
         @media (max-width: 280px) {
-            .opcoes {
-                grid-template-columns: 1fr 1fr;
-                gap: 3px;
-            }
-
-            .opcao label {
-                min-height: 30px;
-                padding: 4px 2px;
-                font-size: 8px;
-            }
-
-            .opcao label .estrelas-texto {
-                font-size: 10px;
-            }
-
-            .opcao label .nivel-texto {
-                font-size: 7px;
-            }
-
-            .container {
-                padding: 10px 8px 14px;
-            }
+            .opcoes { grid-template-columns: 1fr 1fr; gap: 3px; }
+            .opcao label { min-height: 30px; padding: 4px 2px; font-size: 8px; }
+            .opcao label .estrelas-texto { font-size: 10px; }
+            .opcao label .nivel-texto { font-size: 7px; }
+            .container { padding: 10px 8px 14px; }
         }
     </style>
 </head>
@@ -808,9 +581,9 @@
         <p style="color: #3a5a4a; margin-bottom: 10px; font-size: 14px;">
             Seu voto foi salvo. Obrigado por participar! ⚽
         </p>
-        <!--button class="btn-whatsapp" id="btnCompartilhar">
+        <button class="btn-whatsapp" id="btnCompartilhar">
             📤 Compartilhar no WhatsApp
-    </button-->
+        </button>
         <button class="btn-voltar" id="btnVoltar">
             ↩️ Voltar
         </button>
@@ -838,7 +611,7 @@
     // =====================================================
     
     // 🔴 COLOQUE AQUI O URL DO SEU APPS SCRIPT
-    const URL_API = "https://script.google.com/macros/s/AKfycbygZBUq83QliEM6fYQPU503k4CaPlhqL3n__b7G7FU_OIvKK8Mq18wsUzRsh2bOcidckg/exec";
+    const URL_API = "";
     
     // 🔴 LISTA DE JOGADORES (ATUALIZADA COM SEU GRUPO)
     const JOGADORES = [
@@ -899,6 +672,17 @@
     const btnCompartilhar = document.getElementById('btnCompartilhar');
     const btnVoltar = document.getElementById('btnVoltar');
     const loading = document.getElementById('loading');
+
+    // =====================================================
+    // ✅ FUNÇÃO DE SEGURANÇA PARA ADICIONAR EVENTOS
+    // =====================================================
+    function adicionarEventoComSeguranca(elemento, evento, funcao) {
+        if (elemento) {
+            elemento.addEventListener(evento, funcao);
+        } else {
+            console.warn(`⚠️ Elemento não encontrado: ${evento}`);
+        }
+    }
 
     function renderizarJogadores() {
         listaContainer.innerHTML = '';
@@ -1041,22 +825,39 @@
     }
 
     // =====================================================
-    // Event Listeners
+    // Event Listeners com verificação de segurança
     // =====================================================
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const dados = coletarDados();
-        if (dados) {
-            enviarVoto(dados);
-        }
-    });
+    // Verifica se o formulário existe antes de adicionar o evento
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const dados = coletarDados();
+            if (dados) {
+                enviarVoto(dados);
+            }
+        });
+    } else {
+        console.error('❌ Formulário não encontrado!');
+    }
 
-    btnCompartilhar.addEventListener('click', compartilharWhatsApp);
-    btnVoltar.addEventListener('click', voltarFormulario);
+    // Verifica se o botão de compartilhar existe
+    if (btnCompartilhar) {
+        btnCompartilhar.addEventListener('click', compartilharWhatsApp);
+    } else {
+        console.warn('⚠️ Botão "Compartilhar no WhatsApp" não encontrado');
+    }
 
+    // Verifica se o botão voltar existe
+    if (btnVoltar) {
+        btnVoltar.addEventListener('click', voltarFormulario);
+    } else {
+        console.warn('⚠️ Botão "Voltar" não encontrado');
+    }
+
+    // Evento para mudança nos radios
     document.addEventListener('change', function(e) {
-        if (e.target.type === 'radio') {
+        if (e.target && e.target.type === 'radio') {
             erroGlobal.classList.remove('show');
             const card = e.target.closest('.jogador-card');
             if (card) {
@@ -1066,13 +867,16 @@
         }
     });
 
-    nomeInput.addEventListener('input', function() {
-        erroGlobal.classList.remove('show');
-    });
+    // Evento para input do nome
+    if (nomeInput) {
+        nomeInput.addEventListener('input', function() {
+            erroGlobal.classList.remove('show');
+        });
+    }
 
     // Inicializa
     renderizarJogadores();
-    console.log('✅ Formulário carregado!');
+    console.log('✅ Formulário carregado com segurança!');
 </script>
 
 </body>
