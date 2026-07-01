@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>⚽ Votação Futebol</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0a1a2e;
+            background-image: radial-gradient(circle at 20% 50%, #1a3a5c 0%, #0a1a2e 80%);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 24px 20px 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            margin: 10px auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid #e8edf2;
+            margin-bottom: 20px;
+        }
+
+        .header-icon {
+            background: #25D366;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            color: #1a2a3a;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: #667781;
+            margin-top: 2px;
+        }
+
+        .subtitle {
+            background: #e8f5e9;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+            font-size: 14px;
+            color: #1a5a3a;
+            border-left: 4px solid #25D366;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subtitle span {
+            font-size: 18px;
+        }
+
+        .nome-section {
+            margin-bottom: 24px;
+        }
+
+        .nome-section label {
+            font-weight: 600;
+            color: #1a2a3a;
+            font-size: 15px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .nome-section label .required {
+            color: #e74c3c;
+        }
+
+        .nome-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #dce3e8;
+            border-radius: 14px;
+            font-size: 16px;
+            background: #f8fafc;
+            transition: all 0.2s;
+        }
+
+        .nome-input:focus {
+            outline: none;
+            border-color: #25D366;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.15);
+        }
+
+        .jogador-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border: 2px solid #eef2f5;
+            transition: all 0.2s;
+        }
+
+        .jogador-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .jogador-card .jogador-nome {
+            font-weight: 700;
+            color: #1a2a3a;
+            font-size: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .jogador-card .jogador-nome .badge {
+            background: #dce3e8;
+            color: #3a4a5a;
+            font-size: 11px;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .opcoes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .opcao {
+            position: relative;
+        }
+
+        .opcao input[type="radio"] {
+            display: none;
+        }
+
+        .opcao label {
+            display: block;
+            padding: 10px 8px;
+            background: white;
+            border: 2px solid #dce3e8;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: #3a4a5a;
+            cursor: pointer;
+            transition: all 0.15s;
+            user-select: none;
+            line-height: 1.3;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .opcao input[type="radio"]:checked + label {
+            background: #e8f5e9;
+            border-color: #25D366;
+            color: #1a5a3a;
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+            font-weight: 600;
+        }
+
+        .opcao label:active {
+            transform: scale(0.96);
+        }
+
+        .btn-votar {
+            width: 100%;
+            padding: 16px;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-votar:active {
+            transform: scale(0.97);
+            background: #1da851;
+        }
+
+        .btn-votar:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-whatsapp {
+            width: 100%;
+            padding: 14px;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-whatsapp:active {
+            transform: scale(0.97);
+            background: #1da851;
+        }
+
+        .btn-voltar {
+            width: 100%;
+            padding: 14px;
+            background: #e8edf2;
+            color: #1a2a3a;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-voltar:active {
+            transform: scale(0.97);
+            background: #d5dce3;
+        }
+
+        #resultado {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f0f7f0;
+            border-radius: 16px;
+            border: 2px solid #25D366;
+        }
+
+        #resultado.show {
+            display: block;
+        }
+
+        #resultado h3 {
+            color: #1a5a3a;
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .erro-msg {
+            color: #e74c3c;
+            font-size: 14px;
+            padding: 10px;
+            background: #fde8e8;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .erro-msg.show {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #667781;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #e8edf2;
+            border-top-color: #25D366;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 16px 14px;
+            }
+            .opcoes {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            .opcao label {
+                font-size: 12px;
+                padding: 8px 6px;
+                min-height: 38px;
+            }
+            .header h1 {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-icon">⚽</div>
+        <div>
+            <h1>Votação do Futebol</h1>
+            <p>Grupo • Vote no nível de cada jogador</p>
+        </div>
+    </div>
+
+    <div class="subtitle">
+        <span>📋</span> Seu voto será registrado na planilha
+    </div>
+
+    <form id="formVotacao">
+        <div class="nome-section">
+            <label>Seu nome <span class="required">*</span></label>
+            <input type="text" 
+                   class="nome-input" 
+                   id="nomeVotante" 
+                   placeholder="Digite seu nome no grupo" 
+                   required
+                   autocomplete="off">
+        </div>
+
+        <div id="listaJogadores"></div>
+
+        <div id="erroGlobal" class="erro-msg"></div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px;">Enviando seu voto...</p>
+        </div>
+
+        <button type="submit" class="btn-votar" id="btnVotar">
+            🗳️ Enviar meu voto
+        </button>
+    </form>
+
+    <div id="resultado">
+        <h3>✅ Voto registrado!</h3>
+        <p style="color: #3a5a4a; margin-bottom: 12px;">
+            Seu voto foi salvo na planilha. Obrigado por participar! ⚽
+        </p>
+        <button class="btn-whatsapp" id="btnCompartilhar">
+            📤 Compartilhar no WhatsApp
+        </button>
+        <button class="btn-voltar" id="btnVoltar">
+            ↩️ Voltar
+        </button>
+    </div>
+</div>
+
+<script>
+    // =====================================================
+    // 🔧 CONFIGURAÇÃO
+    // =====================================================
+    
+    // 🔴 COLOQUE AQUI O URL DO SEU APPS SCRIPT
+    const URL_API = "https://script.google.com/macros/s/SEU_ID_AQUI/exec";
+    
+    // 🔴 LISTA DE JOGADORES (MANTENHA IGUAL À PLANILHA)
+    const JOGADORES = [
+        "Carlos",
+        "Ana",
+        "Rafael",
+        "Juliana",
+        "Fernando",
+        "Marcos",
+        "Patrícia",
+        "Lucas"
+    ];
+
+    const NIVEL_OPCOES = [
+        "Não corre e nem marca",
+        "Preguiçoso",
+        "Corre e marca",
+        "Joga bem"
+    ];
+
+    // =====================================================
+    // Código principal
+    // =====================================================
+    const form = document.getElementById('formVotacao');
+    const nomeInput = document.getElementById('nomeVotante');
+    const listaContainer = document.getElementById('listaJogadores');
+    const resultadoDiv = document.getElementById('resultado');
+    const erroGlobal = document.getElementById('erroGlobal');
+    const btnVotar = document.getElementById('btnVotar');
+    const btnCompartilhar = document.getElementById('btnCompartilhar');
+    const btnVoltar = document.getElementById('btnVoltar');
+    const loading = document.getElementById('loading');
+
+    function renderizarJogadores() {
+        listaContainer.innerHTML = '';
+        
+        JOGADORES.forEach((nome, index) => {
+            const card = document.createElement('div');
+            card.className = 'jogador-card';
+            card.setAttribute('data-index', index);
+            
+            const nomeHTML = `
+                <div class="jogador-nome">
+                    ${nome}
+                    <span class="badge">${index + 1}</span>
+                </div>
+            `;
+            
+            const opcoesHTML = NIVEL_OPCOES.map(opcao => `
+                <div class="opcao">
+                    <input type="radio" 
+                           name="jogador_${index}" 
+                           value="${opcao}" 
+                           id="jogador_${index}_${opcao.replace(/\s/g, '_')}">
+                    <label for="jogador_${index}_${opcao.replace(/\s/g, '_')}">${opcao}</label>
+                </div>
+            `).join('');
+            
+            card.innerHTML = nomeHTML + `<div class="opcoes">${opcoesHTML}</div>`;
+            listaContainer.appendChild(card);
+        });
+    }
+
+    function validarVotos() {
+        const cards = document.querySelectorAll('.jogador-card');
+        let todosVotados = true;
+        
+        cards.forEach((card, index) => {
+            const radios = card.querySelectorAll(`input[name="jogador_${index}"]`);
+            let marcado = false;
+            radios.forEach(r => { if (r.checked) marcado = true; });
+            if (!marcado) {
+                todosVotados = false;
+                card.style.borderColor = '#e74c3c';
+                card.style.background = '#fdf0f0';
+            } else {
+                card.style.borderColor = '#eef2f5';
+                card.style.background = '#f8fafc';
+            }
+        });
+        
+        return todosVotados;
+    }
+
+    function coletarDados() {
+        const nome = nomeInput.value.trim();
+        if (!nome) {
+            erroGlobal.textContent = '❌ Por favor, digite seu nome.';
+            erroGlobal.classList.add('show');
+            return null;
+        }
+        erroGlobal.classList.remove('show');
+
+        if (!validarVotos()) {
+            erroGlobal.textContent = '❌ Você precisa votar em TODOS os jogadores.';
+            erroGlobal.classList.add('show');
+            return null;
+        }
+
+        const votos = [];
+        JOGADORES.forEach((nomeJogador, index) => {
+            const radios = document.querySelectorAll(`input[name="jogador_${index}"]`);
+            let valor = '';
+            radios.forEach(r => { if (r.checked) valor = r.value; });
+            votos.push({ jogador: nomeJogador, nivel: valor });
+        });
+
+        return { votante: nome, votos };
+    }
+
+    async function enviarVoto(dados) {
+        loading.classList.add('show');
+        btnVotar.disabled = true;
+        erroGlobal.classList.remove('show');
+
+        try {
+            const response = await fetch(URL_API, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dados)
+            });
+
+            // Como usamos no-cors, não conseguimos ler a resposta diretamente
+            // Mas o voto foi enviado! Verificamos na planilha.
+            
+            loading.classList.remove('show');
+            resultadoDiv.classList.add('show');
+            form.style.display = 'none';
+            
+            // Guarda os dados para compartilhar
+            window.votosRegistrados = dados;
+            
+        } catch (error) {
+            loading.classList.remove('show');
+            btnVotar.disabled = false;
+            erroGlobal.textContent = '❌ Erro ao enviar. Tente novamente.';
+            erroGlobal.classList.add('show');
+            console.error('Erro:', error);
+        }
+    }
+
+    function compartilharWhatsApp() {
+        const dados = window.votosRegistrados;
+        if (!dados) return;
+        
+        let texto = `⚽ *VOTAÇÃO DO FUTEBOL - RESULTADO*\n\n`;
+        texto += `*Votante:* ${dados.votante}\n\n`;
+        texto += `📊 *Níveis de cada jogador:*\n`;
+        dados.votos.forEach(v => {
+            texto += `▪️ ${v.jogador}: ${v.nivel}\n`;
+        });
+        texto += `\n🔹 Vote você também! 🔹`;
+        texto += `\n${window.location.href}`;
+        
+        const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+        window.open(url, '_blank');
+    }
+
+    function voltarFormulario() {
+        form.style.display = 'block';
+        resultadoDiv.classList.remove('show');
+        window.votosRegistrados = null;
+        btnVotar.disabled = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =====================================================
+    // Event Listeners
+    // =====================================================
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const dados = coletarDados();
+        if (dados) {
+            enviarVoto(dados);
+        }
+    });
+
+    btnCompartilhar.addEventListener('click', compartilharWhatsApp);
+    btnVoltar.addEventListener('click', voltarFormulario);
+
+    document.addEventListener('change', function(e) {
+        if (e.target.type === 'radio') {
+            erroGlobal.classList.remove('show');
+            const card = e.target.closest('.jogador-card');
+            if (card) {
+                card.style.borderColor = '#eef2f5';
+                card.style.background = '#f8fafc';
+            }
+        }
+    });
+
+    nomeInput.addEventListener('input', function() {
+        erroGlobal.classList.remove('show');
+    });
+
+    // Inicializa
+    renderizarJogadores();
+    console.log('✅ Formulário carregado!');
+</script>
+
+</body>
+</html>
