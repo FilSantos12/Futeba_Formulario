@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚽ Votação Futebol</title>
+    <title>⚽ Votação Futeba</title>
     <style>
         * {
             margin: 0;
@@ -16,62 +16,63 @@
             background: #0a1a2e;
             background-image: radial-gradient(circle at 20% 50%, #1a3a5c 0%, #0a1a2e 80%);
             min-height: 100vh;
-            padding: 16px;
+            padding: 12px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
         }
 
         .container {
-            max-width: 500px;
+            max-width: 480px;
             width: 100%;
             background: #ffffff;
-            border-radius: 24px;
-            padding: 24px 20px 30px;
+            border-radius: 20px;
+            padding: 18px 16px 24px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-            margin: 10px auto;
+            margin: 6px auto;
         }
 
+        /* CABEÇALHO */
         .header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding-bottom: 18px;
+            gap: 10px;
+            padding-bottom: 14px;
             border-bottom: 2px solid #e8edf2;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .header-icon {
             background: #25D366;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 24px;
             flex-shrink: 0;
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 18px;
             color: #1a2a3a;
             font-weight: 700;
             line-height: 1.2;
         }
 
         .header p {
-            font-size: 13px;
+            font-size: 12px;
             color: #667781;
             margin-top: 2px;
         }
 
         .subtitle {
             background: #e8f5e9;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 22px;
-            font-size: 14px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-size: 13px;
             color: #1a5a3a;
             border-left: 4px solid #25D366;
             display: flex;
@@ -80,19 +81,56 @@
         }
 
         .subtitle span {
-            font-size: 18px;
+            font-size: 16px;
         }
 
+        /* ⭐ LEGENDA DAS ESTRELAS */
+        .legenda-estrelas {
+            background: #f8fafc;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #e8edf2;
+            font-size: 12px;
+            color: #3a4a5a;
+        }
+
+        .legenda-estrelas .titulo-legenda {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #1a2a3a;
+            font-size: 13px;
+        }
+
+        .legenda-estrelas .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 2px 0;
+        }
+
+        .legenda-estrelas .estrelas {
+            color: #f1c40f;
+            font-size: 16px;
+            min-width: 65px;
+            letter-spacing: 0.5px;
+        }
+
+        .legenda-estrelas .texto-nivel {
+            font-size: 12px;
+        }
+
+        /* CAMPO NOME */
         .nome-section {
-            margin-bottom: 24px;
+            margin-bottom: 18px;
         }
 
         .nome-section label {
             font-weight: 600;
             color: #1a2a3a;
-            font-size: 15px;
+            font-size: 14px;
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
         .nome-section label .required {
@@ -101,26 +139,29 @@
 
         .nome-input {
             width: 100%;
-            padding: 14px 16px;
+            padding: 12px 14px;
             border: 2px solid #dce3e8;
-            border-radius: 14px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 15px;
             background: #f8fafc;
             transition: all 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .nome-input:focus {
             outline: none;
             border-color: #25D366;
             background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.15);
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.15);
         }
 
+        /* JOGADORES */
         .jogador-card {
             background: #f8fafc;
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 14px;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 10px;
             border: 2px solid #eef2f5;
             transition: all 0.2s;
         }
@@ -132,8 +173,8 @@
         .jogador-card .jogador-nome {
             font-weight: 700;
             color: #1a2a3a;
-            font-size: 16px;
-            margin-bottom: 12px;
+            font-size: 15px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -142,8 +183,8 @@
         .jogador-card .jogador-nome .badge {
             background: #dce3e8;
             color: #3a4a5a;
-            font-size: 11px;
-            padding: 2px 10px;
+            font-size: 10px;
+            padding: 2px 8px;
             border-radius: 20px;
             font-weight: 600;
         }
@@ -151,7 +192,7 @@
         .opcoes {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 6px;
         }
 
         .opcao {
@@ -164,12 +205,12 @@
 
         .opcao label {
             display: block;
-            padding: 10px 8px;
+            padding: 8px 4px;
             background: white;
             border: 2px solid #dce3e8;
-            border-radius: 12px;
+            border-radius: 10px;
             text-align: center;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 500;
             color: #3a4a5a;
             cursor: pointer;
@@ -178,38 +219,61 @@
             line-height: 1.3;
             min-height: 44px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 1px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .opcao label .estrelas-texto {
+            font-size: 15px;
+            color: #f1c40f;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        .opcao label .nivel-texto {
+            font-size: 10px;
+            font-weight: 500;
+            color: #3a4a5a;
+            line-height: 1.2;
         }
 
         .opcao input[type="radio"]:checked + label {
             background: #e8f5e9;
             border-color: #25D366;
             color: #1a5a3a;
-            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+            box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
+        }
+
+        .opcao input[type="radio"]:checked + label .nivel-texto {
+            color: #1a5a3a;
             font-weight: 600;
         }
 
         .opcao label:active {
-            transform: scale(0.96);
+            transform: scale(0.95);
         }
 
+        /* BOTÕES */
         .btn-votar {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: #25D366;
             color: white;
             border: none;
-            border-radius: 16px;
-            font-size: 18px;
+            border-radius: 14px;
+            font-size: 17px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
-            margin-top: 24px;
+            margin-top: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-votar:active {
@@ -225,20 +289,21 @@
 
         .btn-whatsapp {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: #25D366;
             color: white;
             border: none;
-            border-radius: 16px;
-            font-size: 16px;
+            border-radius: 14px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px;
+            margin-top: 8px;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-whatsapp:active {
@@ -248,16 +313,17 @@
 
         .btn-voltar {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: #e8edf2;
             color: #1a2a3a;
             border: none;
-            border-radius: 16px;
-            font-size: 16px;
+            border-radius: 14px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            margin-top: 8px;
+            margin-top: 6px;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-voltar:active {
@@ -265,12 +331,13 @@
             background: #d5dce3;
         }
 
+        /* RESULTADO */
         #resultado {
             display: none;
-            margin-top: 20px;
-            padding: 20px;
+            margin-top: 16px;
+            padding: 16px;
             background: #f0f7f0;
-            border-radius: 16px;
+            border-radius: 14px;
             border: 2px solid #25D366;
         }
 
@@ -280,20 +347,21 @@
 
         #resultado h3 {
             color: #1a5a3a;
-            font-size: 18px;
-            margin-bottom: 12px;
+            font-size: 16px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
+        /* ERRO */
         .erro-msg {
             color: #e74c3c;
-            font-size: 14px;
-            padding: 10px;
+            font-size: 13px;
+            padding: 8px 12px;
             background: #fde8e8;
             border-radius: 10px;
-            margin-top: 10px;
+            margin-top: 8px;
             display: none;
         }
 
@@ -301,10 +369,11 @@
             display: block;
         }
 
+        /* LOADING */
         .loading {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 16px;
             color: #667781;
         }
 
@@ -314,9 +383,9 @@
 
         .spinner {
             display: inline-block;
-            width: 30px;
-            height: 30px;
-            border: 4px solid #e8edf2;
+            width: 28px;
+            height: 28px;
+            border: 3px solid #e8edf2;
             border-top-color: #25D366;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
@@ -326,21 +395,349 @@
             to { transform: rotate(360deg); }
         }
 
-        @media (max-width: 400px) {
-            .container {
-                padding: 16px 14px;
+        /* ============================================= */
+        /* 📱 FOOTER */
+        /* ============================================= */
+        .footer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e8edf2;
+            text-align: center;
+            font-size: 12px;
+            color: #667781;
+        }
+
+        .footer .dev-nome {
+            font-weight: 600;
+            color: #1a2a3a;
+        }
+
+        .footer .dev-link {
+            color: #25D366;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer .dev-link:active {
+            color: #1da851;
+        }
+
+        .footer .dev-icon {
+            font-size: 14px;
+            margin-right: 4px;
+        }
+
+        .footer .divider {
+            margin: 0 6px;
+            color: #dce3e8;
+        }
+
+        /* ============================================= */
+        /* 📱 RESPONSIVIDADE PARA CELULARES */
+        /* ============================================= */
+
+        /* Celulares pequenos (iPhone SE, Galaxy S8, etc) */
+        @media (max-width: 380px) {
+            body {
+                padding: 8px;
             }
+            
+            .container {
+                padding: 14px 12px 18px;
+                border-radius: 16px;
+            }
+
+            .header h1 {
+                font-size: 16px;
+            }
+            
+            .header p {
+                font-size: 11px;
+            }
+
+            .header-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 20px;
+            }
+
             .opcoes {
                 grid-template-columns: 1fr 1fr;
-                gap: 6px;
+                gap: 4px;
             }
+
             .opcao label {
-                font-size: 12px;
-                padding: 8px 6px;
                 min-height: 38px;
+                padding: 6px 3px;
+                font-size: 10px;
+                border-radius: 8px;
             }
+
+            .opcao label .estrelas-texto {
+                font-size: 13px;
+            }
+
+            .opcao label .nivel-texto {
+                font-size: 9px;
+            }
+
+            .jogador-card {
+                padding: 10px;
+                margin-bottom: 8px;
+                border-radius: 10px;
+            }
+
+            .jogador-card .jogador-nome {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+
+            .legenda-estrelas .estrelas {
+                font-size: 14px;
+                min-width: 50px;
+            }
+
+            .legenda-estrelas .texto-nivel {
+                font-size: 11px;
+            }
+
+            .btn-votar {
+                font-size: 15px;
+                padding: 12px;
+                border-radius: 12px;
+            }
+
+            .nome-input {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+
+            .footer {
+                font-size: 11px;
+                margin-top: 18px;
+                padding-top: 12px;
+            }
+        }
+
+        /* Celulares médios (iPhone 12/13/14, Galaxy A series) */
+        @media (min-width: 381px) and (max-width: 480px) {
+            .container {
+                padding: 16px 14px 20px;
+            }
+
             .header h1 {
                 font-size: 17px;
+            }
+
+            .opcao label {
+                min-height: 42px;
+                padding: 6px 4px;
+            }
+
+            .opcao label .estrelas-texto {
+                font-size: 14px;
+            }
+
+            .opcao label .nivel-texto {
+                font-size: 10px;
+            }
+        }
+
+        /* Celulares grandes (iPhone 15 Pro Max, Galaxy S23 Ultra) */
+        @media (min-width: 481px) and (max-width: 600px) {
+            .container {
+                max-width: 420px;
+                padding: 20px 18px 24px;
+            }
+
+            .opcao label {
+                min-height: 48px;
+                padding: 8px 6px;
+            }
+
+            .opcao label .estrelas-texto {
+                font-size: 16px;
+            }
+
+            .opcao label .nivel-texto {
+                font-size: 11px;
+            }
+        }
+
+        /* Tablets e telas maiores */
+        @media (min-width: 601px) {
+            .container {
+                max-width: 500px;
+                padding: 24px 22px 30px;
+                border-radius: 24px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .opcao label {
+                min-height: 52px;
+                padding: 10px 8px;
+                border-radius: 12px;
+            }
+
+            .opcao label .estrelas-texto {
+                font-size: 18px;
+            }
+
+            .opcao label .nivel-texto {
+                font-size: 12px;
+            }
+
+            .jogador-card {
+                padding: 16px;
+                margin-bottom: 12px;
+            }
+
+            .jogador-card .jogador-nome {
+                font-size: 16px;
+            }
+
+            .footer {
+                font-size: 13px;
+                margin-top: 28px;
+                padding-top: 20px;
+            }
+        }
+
+        /* Modo paisagem (landscape) em celulares */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                padding: 8px;
+            }
+            
+            .container {
+                padding: 12px 14px 16px;
+                border-radius: 14px;
+            }
+
+            .header {
+                padding-bottom: 10px;
+                margin-bottom: 12px;
+            }
+
+            .header-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 18px;
+            }
+
+            .header h1 {
+                font-size: 15px;
+            }
+
+            .header p {
+                font-size: 10px;
+            }
+
+            .subtitle {
+                padding: 6px 12px;
+                font-size: 11px;
+                margin-bottom: 12px;
+            }
+
+            .legenda-estrelas {
+                padding: 6px 12px;
+                margin-bottom: 12px;
+            }
+
+            .legenda-estrelas .item {
+                padding: 1px 0;
+            }
+
+            .legenda-estrelas .estrelas {
+                font-size: 13px;
+                min-width: 45px;
+            }
+
+            .nome-section {
+                margin-bottom: 12px;
+            }
+
+            .nome-section label {
+                font-size: 12px;
+            }
+
+            .nome-input {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+
+            .jogador-card {
+                padding: 8px;
+                margin-bottom: 6px;
+                border-radius: 10px;
+            }
+
+            .jogador-card .jogador-nome {
+                font-size: 12px;
+                margin-bottom: 6px;
+            }
+
+            .opcao label {
+                min-height: 32px;
+                padding: 4px 3px;
+                font-size: 9px;
+                border-radius: 6px;
+            }
+
+            .opcao label .estrelas-texto {
+                font-size: 11px;
+            }
+
+            .opcao label .nivel-texto {
+                font-size: 8px;
+            }
+
+            .btn-votar {
+                font-size: 14px;
+                padding: 10px;
+                margin-top: 12px;
+                border-radius: 10px;
+            }
+
+            .jogador-card .jogador-nome .badge {
+                font-size: 8px;
+                padding: 1px 6px;
+            }
+
+            .footer {
+                font-size: 10px;
+                margin-top: 12px;
+                padding-top: 10px;
+            }
+        }
+
+        /* Ajuste para telas muito pequenas (relógios, etc) */
+        @media (max-width: 280px) {
+            .opcoes {
+                grid-template-columns: 1fr 1fr;
+                gap: 3px;
+            }
+
+            .opcao label {
+                min-height: 30px;
+                padding: 4px 2px;
+                font-size: 8px;
+            }
+
+            .opcao label .estrelas-texto {
+                font-size: 10px;
+            }
+
+            .opcao label .nivel-texto {
+                font-size: 7px;
+            }
+
+            .container {
+                padding: 10px 8px 14px;
             }
         }
     </style>
@@ -351,13 +748,34 @@
     <div class="header">
         <div class="header-icon">⚽</div>
         <div>
-            <h1>Votação do Futebol</h1>
+            <h1>Votação do Futeba</h1>
             <p>Grupo • Vote no nível de cada jogador</p>
         </div>
     </div>
 
     <div class="subtitle">
-        <span>📋</span> Seu voto será registrado na planilha
+        <span>📋</span> Seu voto será registrado
+    </div>
+
+    <!-- ⭐ LEGENDA DAS ESTRELAS -->
+    <div class="legenda-estrelas">
+        <div class="titulo-legenda">⭐ Níveis de avaliação:</div>
+        <div class="item">
+            <span class="estrelas">⭐</span>
+            <span class="texto-nivel">Não corre e nem marca</span>
+        </div>
+        <div class="item">
+            <span class="estrelas">⭐⭐</span>
+            <span class="texto-nivel">Preguiçoso</span>
+        </div>
+        <div class="item">
+            <span class="estrelas">⭐⭐⭐</span>
+            <span class="texto-nivel">Corre e marca</span>
+        </div>
+        <div class="item">
+            <span class="estrelas">⭐⭐⭐⭐</span>
+            <span class="texto-nivel">Joga bem</span>
+        </div>
     </div>
 
     <form id="formVotacao">
@@ -377,7 +795,7 @@
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p style="margin-top: 10px;">Enviando seu voto...</p>
+            <p style="margin-top: 8px; font-size: 14px;">Enviando seu voto...</p>
         </div>
 
         <button type="submit" class="btn-votar" id="btnVotar">
@@ -387,8 +805,8 @@
 
     <div id="resultado">
         <h3>✅ Voto registrado!</h3>
-        <p style="color: #3a5a4a; margin-bottom: 12px;">
-            Seu voto foi salvo na planilha. Obrigado por participar! ⚽
+        <p style="color: #3a5a4a; margin-bottom: 10px; font-size: 14px;">
+            Seu voto foi salvo. Obrigado por participar! ⚽
         </p>
         <button class="btn-whatsapp" id="btnCompartilhar">
             📤 Compartilhar no WhatsApp
@@ -396,6 +814,21 @@
         <button class="btn-voltar" id="btnVoltar">
             ↩️ Voltar
         </button>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- 📱 FOOTER - Desenvolvedor -->
+    <!-- ============================================= -->
+    <div class="footer">
+        <span class="dev-icon">💻</span>
+        <span class="dev-nome">Filipe Santos</span>
+        <span class="divider">|</span>
+        <a href="https://filsantos12.github.io/MyPortifolio/index.html" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="dev-link">
+            🌐 Portfólio
+        </a>
     </div>
 </div>
 
@@ -407,7 +840,7 @@
     // 🔴 COLOQUE AQUI O URL DO SEU APPS SCRIPT
     const URL_API = "https://script.google.com/macros/s/AKfycbygZBUq83QliEM6fYQPU503k4CaPlhqL3n__b7G7FU_OIvKK8Mq18wsUzRsh2bOcidckg/exec";
     
-    // 🔴 LISTA DE JOGADORES (MANTENHA IGUAL À PLANILHA)
+    // 🔴 LISTA DE JOGADORES (ATUALIZADA COM SEU GRUPO)
     const JOGADORES = [
         "Ericleiton",
         "Willian",
@@ -416,6 +849,7 @@
         "Marcelo",
         "Roni",
         "Filipe",
+        "Guilherme GS Store",
         "Lucas",
         "Ricardo",
         "Guilherme Ipero",
@@ -433,11 +867,24 @@
         "Henrique"
     ];
 
+    // ⭐ NÍVEIS COM ESTRELAS (1 a 4 estrelas)
     const NIVEL_OPCOES = [
-        "Não corre e nem marca",
-        "Preguiçoso",
-        "Corre e marca",
-        "Joga bem"
+        { 
+            estrelas: "⭐", 
+            nivel: "Não corre e nem marca" 
+        },
+        { 
+            estrelas: "⭐⭐", 
+            nivel: "Preguiçoso" 
+        },
+        { 
+            estrelas: "⭐⭐⭐", 
+            nivel: "Corre e marca" 
+        },
+        { 
+            estrelas: "⭐⭐⭐⭐", 
+            nivel: "Joga bem" 
+        }
     ];
 
     // =====================================================
@@ -468,15 +915,21 @@
                 </div>
             `;
             
-            const opcoesHTML = NIVEL_OPCOES.map(opcao => `
-                <div class="opcao">
-                    <input type="radio" 
-                           name="jogador_${index}" 
-                           value="${opcao}" 
-                           id="jogador_${index}_${opcao.replace(/\s/g, '_')}">
-                    <label for="jogador_${index}_${opcao.replace(/\s/g, '_')}">${opcao}</label>
-                </div>
-            `).join('');
+            const opcoesHTML = NIVEL_OPCOES.map((opcao, opIndex) => {
+                const id = `jogador_${index}_${opIndex}`;
+                return `
+                    <div class="opcao">
+                        <input type="radio" 
+                               name="jogador_${index}" 
+                               value="${opcao.nivel}" 
+                               id="${id}">
+                        <label for="${id}">
+                            <span class="estrelas-texto">${opcao.estrelas}</span>
+                            <span class="nivel-texto">${opcao.nivel}</span>
+                        </label>
+                    </div>
+                `;
+            }).join('');
             
             card.innerHTML = nomeHTML + `<div class="opcoes">${opcoesHTML}</div>`;
             listaContainer.appendChild(card);
@@ -545,14 +998,10 @@
                 body: JSON.stringify(dados)
             });
 
-            // Como usamos no-cors, não conseguimos ler a resposta diretamente
-            // Mas o voto foi enviado! Verificamos na planilha.
-            
             loading.classList.remove('show');
             resultadoDiv.classList.add('show');
             form.style.display = 'none';
             
-            // Guarda os dados para compartilhar
             window.votosRegistrados = dados;
             
         } catch (error) {
@@ -572,7 +1021,9 @@
         texto += `*Votante:* ${dados.votante}\n\n`;
         texto += `📊 *Níveis de cada jogador:*\n`;
         dados.votos.forEach(v => {
-            texto += `▪️ ${v.jogador}: ${v.nivel}\n`;
+            const opcao = NIVEL_OPCOES.find(o => o.nivel === v.nivel);
+            const estrelas = opcao ? opcao.estrelas : '';
+            texto += `▪️ ${v.jogador}: ${estrelas} ${v.nivel}\n`;
         });
         texto += `\n🔹 Vote você também! 🔹`;
         texto += `\n${window.location.href}`;
