@@ -879,8 +879,10 @@
     // =====================================================
     async function buscarDadosPlanilha() {
         if (!URL_API) {
-            mostrarResultadosExemplo();
-            return;
+            totalVotos.textContent = '⚠️ URL_API não configurado! Configure no código.';
+            rankingLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">⚠️ API não configurada</p>';
+            porcentagemLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">⚠️ API não configurada</p>';
+            return null;
         }
 
         try {
@@ -895,7 +897,9 @@
             return dados;
         } catch (error) {
             console.warn('Erro ao buscar dados da planilha:', error);
-            mostrarResultadosExemplo();
+            totalVotos.textContent = '❌ Erro ao carregar dados: ' + error.message;
+            rankingLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro ao carregar</p>';
+            porcentagemLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro ao carregar</p>';
             return null;
         }
     }
@@ -903,130 +907,125 @@
     // =====================================================
     // FUNÇÃO PARA CALCULAR RESULTADOS
     // =====================================================
-        function calcularResultados(votos) {
-            if (!votos || votos.length === 0) {
-                return {
-                    total: 0,
-                    ranking: JOGADORES.map(jogador => ({
-                        nome: jogador,
-                        media: 0,
-                        totalVotos: 0,
-                        estrelas: '☆'
-                    })),
-                    porcentagens: {}
-                };
-            }
-        
-            const resultados = {};
-            const totalVotantes = votos.length;
-        
-            // Inicializa resultados para cada jogador
-            JOGADORES.forEach(jogador => {
-                resultados[jogador] = {
-                    totalVotos: 0,
-                    somaEstrelas: 0,
-                    niveis: {
-                        "Não corre e nem marca": 0,
-                        "Preguiçoso": 0,
-                        "Corre e marca": 0,
-                        "Joga bem": 0
-                    }
-                };
-            });
-        
-            // Processa cada voto
-            votos.forEach(voto => {
-                Object.keys(voto).forEach(jogador => {
-                    if (jogador !== 'votante' && jogador !== 'timestamp' && jogador !== 'index') {
-                        const nivel = voto[jogador];
-                        if (nivel && resultados[jogador]) {
-                            resultados[jogador].totalVotos++;
-                            
-                            // Soma estrelas - com validação de segurança
-                            const opcao = NIVEL_OPCOES.find(o => o.nivel === nivel);
-                            if (opcao && typeof opcao.valor === 'number') {
-                                resultados[jogador].somaEstrelas += opcao.valor;
-                            }
-        
-                            // Conta por nível
-                            if (resultados[jogador].niveis[nivel] !== undefined) {
-                                resultados[jogador].niveis[nivel]++;
-                            }
-                        }
-                    }
-                });
-            });
-        
-            // Calcula médias e porcentagens
-            const ranking = [];
-            const porcentagens = {};
-        
-            JOGADORES.forEach(jogador => {
-                const dados = resultados[jogador];
-                const total = dados.totalVotos;
-                
-                // 🔴 CORREÇÃO: Se não tiver votos, média = 0
-                if (total > 0) {
-                    // Garante que a soma seja um número válido
-                    const soma = dados.somaEstrelas || 0;
-                    const media = soma / total;
-                    
-                    // 🔴 CORREÇÃO: Garante que a média não seja negativa
-                    const mediaValida = Math.max(0, Math.min(4, media));
-                    
-                    ranking.push({
-                        nome: jogador,
-                        media: mediaValida,
-                        totalVotos: total,
-                        estrelas: mediaValida > 0 ? '⭐'.repeat(Math.round(mediaValida)) : '☆'
-                    });
-        
-                    porcentagens[jogador] = {
-                        totalVotos: total,
-                        niveis: {}
-                    };
-        
-                    NIVEL_OPCOES.forEach(opcao => {
-                        const count = dados.niveis[opcao.nivel] || 0;
-                        porcentagens[jogador].niveis[opcao.nivel] = {
-                            count: count,
-                            porcentagem: total > 0 ? (count / total) * 100 : 0,
-                            estrelas: opcao.estrelas
-                        };
-                    });
-                } else {
-                    // 🔴 CORREÇÃO: Jogador sem votos recebe média 0
-                    ranking.push({
-                        nome: jogador,
-                        media: 0,
-                        totalVotos: 0,
-                        estrelas: '☆'
-                    });
-        
-                    porcentagens[jogador] = {
-                        totalVotos: 0,
-                        niveis: {}
-                    };
-        
-                    NIVEL_OPCOES.forEach(opcao => {
-                        porcentagens[jogador].niveis[opcao.nivel] = {
-                            count: 0,
-                            porcentagem: 0,
-                            estrelas: opcao.estrelas
-                        };
-                    });
-                }
-            });
-        
-            // Ordena ranking por média (decrescente)
-            ranking.sort((a, b) => b.media - a.media);
-        
+    function calcularResultados(votos) {
+        if (!votos || votos.length === 0) {
             return {
-                total: totalVotantes,
-                ranking: ranking,
-                porcentagens: porcentagens
+                total: 0,
+                ranking: JOGADORES.map(jogador => ({
+                    nome: jogador,
+                    media: 0,
+                    totalVotos: 0,
+                    estrelas: '☆'
+                })),
+                porcentagens: {}
             };
         }
+
+        const resultados = {};
+        const totalVotantes = votos.length;
+
+        // Inicializa resultados para cada jogador
+        JOGADORES.forEach(jogador => {
+            resultados[jogador] = {
+                totalVotos: 0,
+                somaEstrelas: 0,
+                niveis: {
+                    "Não corre e nem marca": 0,
+                    "Preguiçoso": 0,
+                    "Corre e marca": 0,
+                    "Joga bem": 0
+                }
+            };
+        });
+
+        // Processa cada voto
+        votos.forEach(voto => {
+            Object.keys(voto).forEach(jogador => {
+                if (jogador !== 'votante' && jogador !== 'timestamp' && jogador !== 'index') {
+                    const nivel = voto[jogador];
+                    if (nivel && resultados[jogador]) {
+                        resultados[jogador].totalVotos++;
+                        
+                        // Soma estrelas - com validação de segurança
+                        const opcao = NIVEL_OPCOES.find(o => o.nivel === nivel);
+                        if (opcao && typeof opcao.valor === 'number') {
+                            resultados[jogador].somaEstrelas += opcao.valor;
+                        }
+
+                        // Conta por nível
+                        if (resultados[jogador].niveis[nivel] !== undefined) {
+                            resultados[jogador].niveis[nivel]++;
+                        }
+                    }
+                }
+            });
+        });
+
+        // Calcula médias e porcentagens
+        const ranking = [];
+        const porcentagens = {};
+
+        JOGADORES.forEach(jogador => {
+            const dados = resultados[jogador];
+            const total = dados.totalVotos;
+            
+            if (total > 0) {
+                const soma = dados.somaEstrelas || 0;
+                const media = soma / total;
+                const mediaValida = Math.max(0, Math.min(4, media));
+                
+                ranking.push({
+                    nome: jogador,
+                    media: mediaValida,
+                    totalVotos: total,
+                    estrelas: mediaValida > 0 ? '⭐'.repeat(Math.round(mediaValida)) : '☆'
+                });
+
+                porcentagens[jogador] = {
+                    totalVotos: total,
+                    niveis: {}
+                };
+
+                NIVEL_OPCOES.forEach(opcao => {
+                    const count = dados.niveis[opcao.nivel] || 0;
+                    porcentagens[jogador].niveis[opcao.nivel] = {
+                        count: count,
+                        porcentagem: total > 0 ? (count / total) * 100 : 0,
+                        estrelas: opcao.estrelas
+                    };
+                });
+            } else {
+                ranking.push({
+                    nome: jogador,
+                    media: 0,
+                    totalVotos: 0,
+                    estrelas: '☆'
+                });
+
+                porcentagens[jogador] = {
+                    totalVotos: 0,
+                    niveis: {}
+                };
+
+                NIVEL_OPCOES.forEach(opcao => {
+                    porcentagens[jogador].niveis[opcao.nivel] = {
+                        count: 0,
+                        porcentagem: 0,
+                        estrelas: opcao.estrelas
+                    };
+                });
+            }
+        });
+
+        ranking.sort((a, b) => b.media - a.media);
+
+        return {
+            total: totalVotantes,
+            ranking: ranking,
+            porcentagens: porcentagens
+        };
+    }
+
     // =====================================================
     // FUNÇÃO PARA EXIBIR RESULTADOS
     // =====================================================
@@ -1098,37 +1097,6 @@
     }
 
     // =====================================================
-    // FUNÇÃO PARA MOSTRAR RESULTADOS DE EXEMPLO (FALLBACK)
-    // =====================================================
-    function mostrarResultadosExemplo() {
-        // Dados de exemplo para teste
-        const exemplo = {
-            total: 5,
-            ranking: JOGADORES.map((nome, index) => ({
-                nome: nome,
-                media: 4 - (index * 0.3),
-                totalVotos: 5,
-                estrelas: '⭐'.repeat(Math.max(1, Math.round(4 - (index * 0.3))))
-            })).sort((a, b) => b.media - a.media),
-            porcentagens: {}
-        };
-
-        JOGADORES.forEach(jogador => {
-            exemplo.porcentagens[jogador] = {
-                totalVotos: 5,
-                niveis: {
-                    "Não corre e nem marca": { count: 1, porcentagem: 20, estrelas: "⭐" },
-                    "Preguiçoso": { count: 1, porcentagem: 20, estrelas: "⭐⭐" },
-                    "Corre e marca": { count: 2, porcentagem: 40, estrelas: "⭐⭐⭐" },
-                    "Joga bem": { count: 1, porcentagem: 20, estrelas: "⭐⭐⭐⭐" }
-                }
-            };
-        });
-
-        exibirResultados(exemplo);
-    }
-
-    // =====================================================
     // FUNÇÃO PARA CARREGAR RESULTADOS DA PLANILHA
     // =====================================================
     async function carregarResultados() {
@@ -1136,19 +1104,23 @@
         conteudoResultados.style.display = 'none';
 
         try {
-            // Busca dados da planilha
             const dados = await buscarDadosPlanilha();
             
             if (dados && dados.votos && dados.votos.length > 0) {
                 const resultados = calcularResultados(dados.votos);
                 exibirResultados(resultados);
+            } else if (dados && dados.votos && dados.votos.length === 0) {
+                totalVotos.textContent = '📊 Nenhum voto registrado ainda. Seja o primeiro a votar! 🗳️';
+                rankingLista.innerHTML = '<p style="text-align:center; color:#667781; padding:20px;">Aguardando votos...</p>';
+                porcentagemLista.innerHTML = '<p style="text-align:center; color:#667781; padding:20px;">Aguardando votos...</p>';
             } else {
-                // Se não tiver dados na planilha, mostra os de exemplo
-                mostrarResultadosExemplo();
+                totalVotos.textContent = '⚠️ Não foi possível carregar os dados.';
             }
         } catch (error) {
             console.error('Erro ao carregar resultados:', error);
-            mostrarResultadosExemplo();
+            totalVotos.textContent = '❌ Erro ao carregar resultados';
+            rankingLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro no carregamento</p>';
+            porcentagemLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro no carregamento</p>';
         }
 
         loadingResultados.style.display = 'none';
@@ -1288,35 +1260,29 @@
     // SISTEMA DE ABAS
     // =====================================================
     function alternarAba(abaId) {
-        // Esconde todas as abas
         document.querySelectorAll('.aba-conteudo').forEach(el => {
             el.classList.remove('active');
         });
         
-        // Remove active de todos os botões
         document.querySelectorAll('.aba-btn').forEach(el => {
             el.classList.remove('active');
         });
         
-        // Mostra a aba selecionada
         const abaSelecionada = document.getElementById(`aba-${abaId}`);
         if (abaSelecionada) {
             abaSelecionada.classList.add('active');
         }
         
-        // Marca o botão como ativo
         const botaoSelecionado = document.querySelector(`.aba-btn[data-aba="${abaId}"]`);
         if (botaoSelecionado) {
             botaoSelecionado.classList.add('active');
         }
 
-        // Se for a aba de resultados, carrega os dados
         if (abaId === 'resultados') {
             carregarResultados();
         }
     }
 
-    // Event listeners para as abas
     document.querySelectorAll('.aba-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const aba = this.getAttribute('data-aba');
@@ -1364,7 +1330,6 @@
     // =====================================================
     renderizarJogadores();
     
-    // Carrega os resultados automaticamente ao abrir a página
     setTimeout(() => {
         carregarResultados();
     }, 500);
