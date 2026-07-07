@@ -51,6 +51,28 @@ let votoEmAndamento = false;
 let jogadoresAdminCache = [];
 
 // =====================================================
+// CACHE LOCAL (mostra dados na hora enquanto busca os atualizados)
+// =====================================================
+const CACHE_KEY = 'futeba_dados_cache';
+
+function salvarCache(dados) {
+    try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(dados));
+    } catch (e) {
+        // localStorage indisponível/cheio - cache é só otimização, segue sem ele
+    }
+}
+
+function lerCache() {
+    try {
+        const bruto = localStorage.getItem(CACHE_KEY);
+        return bruto ? JSON.parse(bruto) : null;
+    } catch (e) {
+        return null;
+    }
+}
+
+// =====================================================
 // FUNÇÃO PARA BUSCAR DADOS DA PLANILHA
 // =====================================================
 async function buscarDadosPlanilha() {
@@ -326,7 +348,7 @@ function exibirResultados(dados) {
 // =====================================================
 // FUNÇÃO PARA CARREGAR RESULTADOS DA PLANILHA
 // =====================================================
-function processarDadosCarregados(dados) {
+function processarDadosCarregados(dados, doCache) {
     if (dados && dados.jogadores) {
         JOGADORES = dados.jogadores;
         // Mantém a votação sincronizada com a lista de jogadores do servidor
@@ -347,20 +369,35 @@ function processarDadosCarregados(dados) {
     } else {
         totalVotos.textContent = '⚠️ Não foi possível carregar os dados.';
     }
+
+    if (doCache && dados && dados.jogadores) {
+        salvarCache(dados);
+    }
 }
 
 async function carregarResultados() {
-    loadingResultados.style.display = 'block';
-    conteudoResultados.style.display = 'none';
+    // Mostra o último resultado conhecido na hora, sem tela de carregamento,
+    // enquanto busca os dados atualizados por trás.
+    const cache = lerCache();
+    if (cache) {
+        processarDadosCarregados(cache, false);
+        loadingResultados.style.display = 'none';
+        conteudoResultados.style.display = 'block';
+    } else {
+        loadingResultados.style.display = 'block';
+        conteudoResultados.style.display = 'none';
+    }
 
     try {
         const dados = await buscarDadosPlanilha();
-        processarDadosCarregados(dados);
+        processarDadosCarregados(dados, true);
     } catch (error) {
         console.error('Erro ao carregar resultados:', error);
-        totalVotos.textContent = '❌ Erro ao carregar resultados';
-        rankingLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro no carregamento</p>';
-        porcentagemLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro no carregamento</p>';
+        if (!cache) {
+            totalVotos.textContent = '❌ Erro ao carregar resultados';
+            rankingLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro no carregamento</p>';
+            porcentagemLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro no carregamento</p>';
+        }
     }
 
     loadingResultados.style.display = 'none';
@@ -713,24 +750,6 @@ if (listaAdminJogadores) {
 // =====================================================
 // INICIALIZAÇÃO
 // =====================================================
-async function inicializar() {
-    loadingResultados.style.display = 'block';
-    conteudoResultados.style.display = 'none';
-
-    try {
-        const dados = await buscarDadosPlanilha();
-        processarDadosCarregados(dados);
-    } catch (error) {
-        console.error('Erro ao carregar dados iniciais:', error);
-        totalVotos.textContent = '❌ Erro ao carregar resultados';
-        rankingLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro no carregamento</p>';
-        porcentagemLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro no carregamento</p>';
-    }
-
-    loadingResultados.style.display = 'none';
-    conteudoResultados.style.display = 'block';
-}
-
-inicializar();
+carregarResultados();
 
 console.log('✅ Formulário carregado com segurança!');
