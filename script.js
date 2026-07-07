@@ -47,6 +47,7 @@ const erroAdminPainel = document.getElementById('erroAdminPainel');
 const listaAdminJogadores = document.getElementById('listaAdminJogadores');
 
 let adminSenha = null;
+let votoEmAndamento = false;
 
 // =====================================================
 // FUNÇÃO PARA BUSCAR DADOS DA PLANILHA
@@ -333,9 +334,10 @@ async function carregarResultados() {
 
         if (dados && dados.jogadores) {
             JOGADORES = dados.jogadores;
-            // Se a votação ainda não renderizou (ex: primeira busca falhou), tenta de novo agora.
-            // Só quando estiver vazia, pra não apagar votos já marcados.
-            if (listaContainer.children.length === 0) {
+            // Mantém a votação sincronizada com a lista de jogadores do servidor
+            // (ex: admin adicionou/inativou alguém), mas nunca depois que a pessoa já
+            // começou a marcar votos, pra não apagar o que ela já preencheu.
+            if (!votoEmAndamento) {
                 renderizarJogadores();
             }
         }
@@ -493,6 +495,7 @@ function voltarFormulario() {
     form.style.display = 'block';
     resultadoDiv.classList.remove('show');
     btnVotar.disabled = false;
+    votoEmAndamento = false;
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -550,6 +553,7 @@ if (btnVoltar) {
 
 document.addEventListener('change', function(e) {
     if (e.target && e.target.type === 'radio') {
+        votoEmAndamento = true;
         erroGlobal.classList.remove('show');
         const card = e.target.closest('.jogador-card');
         if (card) {
