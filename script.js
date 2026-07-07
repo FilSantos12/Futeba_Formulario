@@ -48,6 +48,7 @@ const listaAdminJogadores = document.getElementById('listaAdminJogadores');
 
 let adminSenha = null;
 let votoEmAndamento = false;
+let jogadoresAdminCache = [];
 
 // =====================================================
 // FUNÇÃO PARA BUSCAR DADOS DA PLANILHA
@@ -325,33 +326,36 @@ function exibirResultados(dados) {
 // =====================================================
 // FUNÇÃO PARA CARREGAR RESULTADOS DA PLANILHA
 // =====================================================
+function processarDadosCarregados(dados) {
+    if (dados && dados.jogadores) {
+        JOGADORES = dados.jogadores;
+        // Mantém a votação sincronizada com a lista de jogadores do servidor
+        // (ex: admin adicionou/inativou alguém), mas nunca depois que a pessoa já
+        // começou a marcar votos, pra não apagar o que ela já preencheu.
+        if (!votoEmAndamento) {
+            renderizarJogadores();
+        }
+    }
+
+    if (dados && dados.votos && dados.votos.length > 0) {
+        const resultados = calcularResultados(dados.votos);
+        exibirResultados(resultados);
+    } else if (dados && dados.votos && dados.votos.length === 0) {
+        totalVotos.textContent = '📊 Nenhum voto registrado ainda. Seja o primeiro a votar! 🗳️';
+        rankingLista.innerHTML = '<p style="text-align:center; color:#667781; padding:20px;">Aguardando votos...</p>';
+        porcentagemLista.innerHTML = '<p style="text-align:center; color:#667781; padding:20px;">Aguardando votos...</p>';
+    } else {
+        totalVotos.textContent = '⚠️ Não foi possível carregar os dados.';
+    }
+}
+
 async function carregarResultados() {
     loadingResultados.style.display = 'block';
     conteudoResultados.style.display = 'none';
 
     try {
         const dados = await buscarDadosPlanilha();
-
-        if (dados && dados.jogadores) {
-            JOGADORES = dados.jogadores;
-            // Mantém a votação sincronizada com a lista de jogadores do servidor
-            // (ex: admin adicionou/inativou alguém), mas nunca depois que a pessoa já
-            // começou a marcar votos, pra não apagar o que ela já preencheu.
-            if (!votoEmAndamento) {
-                renderizarJogadores();
-            }
-        }
-
-        if (dados && dados.votos && dados.votos.length > 0) {
-            const resultados = calcularResultados(dados.votos);
-            exibirResultados(resultados);
-        } else if (dados && dados.votos && dados.votos.length === 0) {
-            totalVotos.textContent = '📊 Nenhum voto registrado ainda. Seja o primeiro a votar! 🗳️';
-            rankingLista.innerHTML = '<p style="text-align:center; color:#667781; padding:20px;">Aguardando votos...</p>';
-            porcentagemLista.innerHTML = '<p style="text-align:center; color:#667781; padding:20px;">Aguardando votos...</p>';
-        } else {
-            totalVotos.textContent = '⚠️ Não foi possível carregar os dados.';
-        }
+        processarDadosCarregados(dados);
     } catch (error) {
         console.error('Erro ao carregar resultados:', error);
         totalVotos.textContent = '❌ Erro ao carregar resultados';
@@ -605,7 +609,8 @@ async function entrarAdmin() {
 
     adminLoginDiv.style.display = 'none';
     adminPainelDiv.style.display = 'block';
-    renderizarPainelAdmin(resultado.jogadores);
+    jogadoresAdminCache = resultado.jogadores || [];
+    renderizarPainelAdmin(jogadoresAdminCache);
 }
 
 function renderizarPainelAdmin(jogadores) {
@@ -622,16 +627,6 @@ function renderizarPainelAdmin(jogadores) {
             <button class="btn-excluir" data-nome="${j.nome}">Excluir</button>
         </div>
     `).join('');
-}
-
-async function recarregarPainelAdmin() {
-    const resultado = await chamarApiAdmin('listarJogadores');
-    if (resultado.status === 'erro') {
-        erroAdminPainel.textContent = resultado.mensagem;
-        erroAdminPainel.classList.add('show');
-        return;
-    }
-    renderizarPainelAdmin(resultado.jogadores);
 }
 
 async function adicionarJogadorAdmin() {
@@ -656,7 +651,8 @@ async function adicionarJogadorAdmin() {
     }
 
     novoJogadorNomeInput.value = '';
-    await recarregarPainelAdmin();
+    jogadoresAdminCache.push({ nome, ativo: true });
+    renderizarPainelAdmin(jogadoresAdminCache);
 }
 
 async function alterarStatusJogadorAdmin(nome, ativoAtual) {
@@ -666,7 +662,10 @@ async function alterarStatusJogadorAdmin(nome, ativoAtual) {
         erroAdminPainel.classList.add('show');
         return;
     }
-    await recarregarPainelAdmin();
+
+    const jogador = jogadoresAdminCache.find(j => j.nome === nome);
+    if (jogador) jogador.ativo = !ativoAtual;
+    renderizarPainelAdmin(jogadoresAdminCache);
 }
 
 async function excluirJogadorAdmin(nome) {
@@ -678,7 +677,9 @@ async function excluirJogadorAdmin(nome) {
         erroAdminPainel.classList.add('show');
         return;
     }
-    await recarregarPainelAdmin();
+
+    jogadoresAdminCache = jogadoresAdminCache.filter(j => j.nome !== nome);
+    renderizarPainelAdmin(jogadoresAdminCache);
 }
 
 if (btnEntrarAdmin) {
@@ -713,15 +714,21 @@ if (listaAdminJogadores) {
 // INICIALIZAÇÃO
 // =====================================================
 async function inicializar() {
-    const dados = await buscarDadosPlanilha();
-    if (dados && dados.jogadores) {
-        JOGADORES = dados.jogadores;
-    }
-    renderizarJogadores();
+    loadingResultados.style.display = 'block';
+    conteudoResultados.style.display = 'none';
 
-    setTimeout(() => {
-        carregarResultados();
-    }, 500);
+    try {
+        const dados = await buscarDadosPlanilha();
+        processarDadosCarregados(dados);
+    } catch (error) {
+        console.error('Erro ao carregar dados iniciais:', error);
+        totalVotos.textContent = '❌ Erro ao carregar resultados';
+        rankingLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro no carregamento</p>';
+        porcentagemLista.innerHTML = '<p style="text-align:center; color:#e74c3c; padding:20px;">❌ Erro no carregamento</p>';
+    }
+
+    loadingResultados.style.display = 'none';
+    conteudoResultados.style.display = 'block';
 }
 
 inicializar();
